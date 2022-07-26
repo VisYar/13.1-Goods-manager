@@ -1,11 +1,11 @@
-package repository;
+package ru.netology.repository;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.netology.ProductRepository;
 import ru.netology.product.Book;
 import ru.netology.product.Product;
 import ru.netology.product.Smartphone;
-import ru.netology.repository.ProductRepository;
 
 public class ProductRepositoryTest {
 
