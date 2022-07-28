@@ -36,18 +36,26 @@ public class ProductManager {
     }
 
     public boolean matches(Product product, String search) {
-
         if (product.getName().contains(search)) {
             return true;
+        } else {
+            return false;
         }
-        if (product instanceof Book) {
-            if (((Book) product).getAuthor().contains(search)) {
-                return true;
-            }
-        }
-        if (product instanceof Smartphone) {
-            return ((Smartphone) product).getManufacturer().contains(search);
-        }
-        return false;
     }
-}
+    }
+//    public boolean matches(Product product, String search) {
+//
+//        if (product.getName().contains(search)) {
+//            return true;
+//        }
+//        if (product instanceof Book) {
+//            if (((Book) product).getAuthor().contains(search)) {
+//                return true;
+//            }
+//        }
+//        if (product instanceof Smartphone) {
+//            return ((Smartphone) product).getManufacturer().contains(search);
+//        }
+//        return false;
+//    }
+//}

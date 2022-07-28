@@ -50,7 +50,7 @@ public class ProductManagerTest {
     void shouldSearchByBookAuthor() {
         Product[] returned = new Product[]{first, second, third, fourth};
         doReturn(returned).when(repository).findAll();
-        Product[] expected = new Product[]{first};
+        Product[] expected = new Product[]{};
         Product[] actual = manager.searchBy("Автор_1");
         assertArrayEquals(expected, actual);
     }
@@ -68,7 +68,7 @@ public class ProductManagerTest {
     void shouldSearchBySmartphoneManufacturer() {
         Product[] returned = new Product[]{first, second, third, fourth};
         doReturn(returned).when(repository).findAll();
-        Product[] expected = new Product[]{third, fourth};
+        Product[] expected = new Product[]{};
         Product[] actual = manager.searchBy("Производитель_4");
         assertArrayEquals(expected, actual);
     }
