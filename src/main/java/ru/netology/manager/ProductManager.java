@@ -1,8 +1,6 @@
 package ru.netology.manager;
 
-import ru.netology.product.Book;
 import ru.netology.product.Product;
-import ru.netology.product.Smartphone;
 import ru.netology.repository.ProductRepository;
 
 
@@ -42,7 +40,7 @@ public class ProductManager {
             return false;
         }
     }
-    }
+}
 //    public boolean matches(Product product, String search) {
 //
 //        if (product.getName().contains(search)) {

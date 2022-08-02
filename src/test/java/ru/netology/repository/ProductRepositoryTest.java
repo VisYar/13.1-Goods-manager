@@ -76,4 +76,16 @@ public class ProductRepositoryTest {
             repository.addNewProducts(item3);
         });
     }
+
+    @Test
+    public void findAll() {
+        repository.addNewProducts(item1);
+        repository.addNewProducts(item2);
+        repository.addNewProducts(item3);
+        repository.addNewProducts(item4);
+        repository.addNewProducts(item5);
+
+        Product[] expected = {item1, item2, item3, item4, item5};
+        assertArrayEquals(expected, repository.findAll());
+    }
 }
