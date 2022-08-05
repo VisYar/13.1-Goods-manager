@@ -1,44 +1,84 @@
 package ru.netology.repository;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.netology.product.Book;
 import ru.netology.product.Product;
 import ru.netology.product.Smartphone;
 
-public class ProductRepositoryTest {
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-    Product item1 = new Book(1, "Название_1", 100, "Автор_1");
-    Product item2 = new Book(2, "Название_2", 200, "Автор_2");
-    Product item3 = new Book(3, "Название_3", 300, "Автор_3");
-    Product item4 = new Smartphone(4, "Название_4", 10_000, "Производитель_4");
-    Product item5 = new Smartphone(5, "Название_5", 20_000, "Производитель_5");
+public class ProductRepositoryTest {
+    ProductRepository repository = new ProductRepository();
+
+    Product product1 = new Book(1, "Гордость и предубеждение", 300, "Джейн_Остин");
+    Product product2 = new Book(22, "1984", 300, "Джордж Оруэлл");
+    Product product3 = new Book(333, "Жизнь и удача", 450, "Орлов");
+    Product product4 = new Book(44, "Жизнь и работа", 460, "Орлов");
+    Product product5 = new Smartphone(5, "iPhone 13", 100_000, "Apple");
+    Product product6 = new Smartphone(66, "Galaxy S22", 30_000, "Samsung");
+    Product product7 = new Smartphone(777, "Xiaomi 11", 25_000, "Xiaomi");
+    Product product8 = new Smartphone(88, "Xiaomi 11 Pro", 30_000, "Xiaomi");
 
     @Test
-    public void shouldRemoveExistingItemFromArray() {
-        ProductRepository repository = new ProductRepository();
-        repository.save(item1);
-        repository.save(item2);
-        repository.save(item3);
-        repository.removeById(3);
-
-        Product[] expected = {item1, item2};
+    public void findEmpty() {
+        Product[] expected = {};
         Product[] actual = repository.findAll();
-
-        Assertions.assertArrayEquals(expected, actual);
+        assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldAddNonExistingItemToArray() {
-        ProductRepository repository = new ProductRepository();
-        repository.save(item1);
-        repository.save(item2);
-        repository.save(item4);
-        repository.save(item5);
-
-        Product[] expected = {item1, item2, item4, item5};
+    public void AddOnlyBooks() {
+        repository.add(product1);
+        repository.add(product2);
+        repository.add(product3);
+        repository.add(product4);
+        Product[] expected = {product1, product2, product3, product4};
         Product[] actual = repository.findAll();
+        assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void AddOnlySmartphone() {
+        repository.add(product5);
+        repository.add(product6);
+        repository.add(product7);
+        repository.add(product8);
+        Product[] expected = {product5, product6, product7, product8};
+        Product[] actual = repository.findAll();
+        assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void removeExistingProductFromArray() {
+        repository.add(product1);
+        repository.add(product2);
+        repository.add(product3);
+        repository.add(product4);
+        repository.remove(333);
+        Product[] expected = {product1, product2, product4};
+        Product[] actual = repository.findAll();
+        assertArrayEquals(expected, actual);
+    }
 
-        Assertions.assertArrayEquals(expected, actual);
+    @Test
+    public void removeNotExistingProductFromArray() {
+        repository.add(product1);
+        repository.add(product2);
+        repository.add(product3);
+        repository.add(product4);
+        assertThrows(RuntimeException.class, () -> {
+            repository.remove(9);
+        });
+    }
+
+    @Test
+    public void shouldSave() {
+        repository.add(product1);
+        repository.add(product2);
+        repository.add(product3);
+        repository.add(product4);
+        repository.add(product8);
+        Product[] expected = {product1, product2, product3, product4, product8};
+        Product[] actual = repository.findAll();
+        assertArrayEquals(expected, actual);
     }
 }

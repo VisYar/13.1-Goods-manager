@@ -18,8 +18,4 @@ public class Product {
     public String getName() {
         return name;
     }
-
-    public boolean matches(Product product, String search) {
-        return product.getName().contains(search);
-    }
 }

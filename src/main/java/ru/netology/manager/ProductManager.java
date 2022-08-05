@@ -3,7 +3,6 @@ package ru.netology.manager;
 import ru.netology.product.Product;
 import ru.netology.repository.ProductRepository;
 
-
 public class ProductManager {
     private final ProductRepository repository;
 
@@ -11,13 +10,8 @@ public class ProductManager {
         this.repository = repository;
     }
 
-    private Product[] items = new Product[0];
-
-    public void add(Product item) {
-        Product[] tmp = new Product[items.length + 1];
-        System.arraycopy(items, 0, tmp, 0, items.length);
-        tmp[tmp.length - 1] = item;
-        items = tmp;
+    public void add(Product product) {
+        repository.add(product);
     }
 
     public Product[] searchBy(String text) {
@@ -25,7 +19,9 @@ public class ProductManager {
         for (Product product : repository.findAll()) {
             if (matches(product, text)) {
                 Product[] tmp = new Product[result.length + 1];
-                System.arraycopy(result, 0, tmp, 0, result.length);
+                for (int i = 0; i < result.length; i++) {
+                    tmp[i] = result[i];
+                }
                 tmp[tmp.length - 1] = product;
                 result = tmp;
             }
@@ -40,20 +36,4 @@ public class ProductManager {
             return false;
         }
     }
-    }
-//    public boolean matches(Product product, String search) {
-//
-//        if (product.getName().contains(search)) {
-//            return true;
-//        }
-//        if (product instanceof Book) {
-//            if (((Book) product).getAuthor().contains(search)) {
-//                return true;
-//            }
-//        }
-//        if (product instanceof Smartphone) {
-//            return ((Smartphone) product).getManufacturer().contains(search);
-//        }
-//        return false;
-//    }
-//}
+}

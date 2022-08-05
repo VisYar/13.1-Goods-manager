@@ -3,28 +3,39 @@ package ru.netology.repository;
 import ru.netology.product.Product;
 
 public class ProductRepository {
-    private Product[] items = new Product[0];
+    private Product[] products = new Product[0];
 
-    public void save(Product item) {
-        Product[] tmp = new Product[items.length + 1];
-        System.arraycopy(items, 0, tmp, 0, items.length);
-        tmp[tmp.length - 1] = item;
-        items = tmp;
+    public void add(Product product) {
+        Product[] tmp = new Product[products.length + 1];
+        System.arraycopy(products, 0, tmp, 0, products.length);
+        tmp[tmp.length - 1] = product;
+        products = tmp;
     }
 
     public Product[] findAll() {
-        return items;
+        return products;
     }
 
-    public void removeById(int id) {
-        Product[] tmp = new Product[items.length - 1];
+    public void remove(int id) {
+        if (findById(id) == null) {
+            throw new RuntimeException("Такой id не существует: " + id);
+        }
+        Product[] tmp = new Product[products.length - 1];
         int index = 0;
-        for (Product item : items) {
-            if (item.getId() != id) {
-                tmp[index] = item;
+        for (Product product : products) {
+            if (product.getId() != id) {
+                tmp[index] = product;
                 index++;
             }
         }
-        items = tmp;
+        products = tmp;
+    }
+    public Product findById(int id) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
     }
 }
